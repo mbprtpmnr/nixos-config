@@ -9,6 +9,8 @@
 
   imports = [ ];
 
+  programs.gc.enable = true;
+
   nix.useSandbox = false;
   nix.autoOptimiseStore = true;
   nix.buildCores = 1;

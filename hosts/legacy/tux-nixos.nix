@@ -22,6 +22,8 @@
   boot.supportedFilesystems = [ "zfs" "ntfs" "btrfs" "exfat" "avfs" ];
   boot.cleanTmpDir = true;
 
+  programs.gc.enable = true;
+
   hardware.enableRedistributableFirmware = true;
   # networking.enableRalinkFirmware = true;
 
