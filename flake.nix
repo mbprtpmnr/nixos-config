@@ -10,6 +10,12 @@
 
     nixosModules = import ./modules;
 
+    nixosModule = { ... }: {
+      imports = with self.nixosModules; [
+        cachix flake
+      ];
+    };
+
     nixosConfigurations = import ./hosts inputs;
 
     packages.x86_64-linux = (import ./scripts inputs)

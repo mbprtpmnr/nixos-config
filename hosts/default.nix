@@ -12,11 +12,12 @@ let
         (./. + "/legacy/${name}.nix")
         (./. + "/hardware/${name}.nix")
         nixpkgs.nixosModules.notDetected
+        self.nixosModule
       ] ++ modules;
     });
 in
 {
-  delly-nixos = mkSystem "delly-nixos" nixpkgs (with self.nixosModules; [ cachix flake gc version ]);
-  tux-nixos = mkSystem "tux-nixos" nixpkgs (with self.nixosModules; [ cachix flake intel gc version ]);
-  nixos = mkSystem "nixos" inputs.unstable (with self.nixosModules; [ cachix flake virtualbox-demo gc version ]);
+  delly-nixos = mkSystem "delly-nixos" nixpkgs (with self.nixosModules; [ gc version ]);
+  tux-nixos = mkSystem "tux-nixos" nixpkgs (with self.nixosModules; [ intel gc version ]);
+  nixos = mkSystem "nixos" inputs.unstable (with self.nixosModules; [ virtualbox-demo gc version ]);
 }
