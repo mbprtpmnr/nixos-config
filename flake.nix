@@ -12,7 +12,7 @@
 
     nixosModule = { ... }: {
       imports = with self.nixosModules; [
-        cachix flake
+        cachix flake gc
       ];
     };
 
