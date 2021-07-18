@@ -14,7 +14,10 @@
   inputs.emacs.url = "github:nix-community/emacs-overlay";
   inputs.emacs.inputs.nixpkgs.follows = "master";
 
-  outputs = { self, nixpkgs-2009, nixpkgs-2105, unstable, flake-utils, emacs, ... }@inputs:
+  inputs.nix-on-droid.url = "github:t184256/nix-on-droid/master";
+  inputs.nix-on-droid.inputs.nixpkgs.follows = "nixpkgs-2105";
+
+  outputs = { self, nixpkgs-2009, nixpkgs-2105, unstable, flake-utils, emacs, nix-on-droid, ... }@inputs:
     let
       pkgs = nixpkgs-2009.legacyPackages.x86_64-linux;
       upkgs = unstable.legacyPackages.x86_64-linux;
@@ -41,6 +44,13 @@
 
       nixosModules = import ./nixos/modules;
       nixosConfigurations = import ./nixos/hosts inputs;
+
+      droidModules = {};
+      droidConfigurations = {
+        pixelchen = (nix-on-droid.lib.aarch64-linux.nix-on-droid {
+	  config = ./nix-on-droid.nix;
+        });
+      };
 
       homeModules = import ./home/modules pkgs.lib;
       homeConfigurations = {
